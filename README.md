@@ -4,22 +4,22 @@ Team 07
 ## Please when ready add your teams application URL or IP to the repository description. This will help with grading. Teams are expected to keep this value up to date.
 
 Piero Calenzani (Lead)
-      asmodeus@mail.sfsu.edu
+      - asmodeus@mail.sfsu.edu
       
 Jason Wei
-      zwei@mail.sfsu.edu
+      - zwei@mail.sfsu.edu
       
 Navneet Singh
-      nsingh4@mail.sfsu.edu
+      - nsingh4@mail.sfsu.edu
       
 Jimmy Kwan
-      jkwan3@mail.sfsu.edu
+      - jkwan3@mail.sfsu.edu
       
 Chinmay Purav
-      cpurav@mail.sfsu.edu
+      - cpurav@mail.sfsu.edu
       
 Steve Apicella
-      sapicella@mail.sfsu.edu
+      - sapicella@mail.sfsu.edu
       
 
 ## NO code needs to be stored in the root of your repository. You may rename the application folder if you like to your team's application name. But all source code related to your team's application should be stored inside the application folder.
