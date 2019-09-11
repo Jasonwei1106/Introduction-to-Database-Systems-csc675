@@ -5,16 +5,22 @@ Team 07
 
 Piero Calenzani (Lead)
       asmodeus@mail.sfsu.edu
+      
 Jason Wei
       zwei@mail.sfsu.edu
+      
 Navneet Singh
       nsingh4@mail.sfsu.edu
+      
 Jimmy Kwan
       jkwan3@mail.sfsu.edu
+      
 Chinmay Purav
       cpurav@mail.sfsu.edu
+      
 Steve Apicella
       sapicella@mail.sfsu.edu
+      
 
 ## NO code needs to be stored in the root of your repository. You may rename the application folder if you like to your team's application name. But all source code related to your team's application should be stored inside the application folder.
 ## Milestones and all their versions need to be stored inside the milestones folder. 
