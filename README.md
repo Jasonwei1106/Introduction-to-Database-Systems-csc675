@@ -18,8 +18,8 @@ Jimmy Kwan
 Chinmay Purav
       - cpurav@mail.sfsu.edu
       
-Steve Apicella
-      - sapicella@mail.sfsu.edu
+Pratik Singh
+      - kobez2417@gmail.com
       
 
 ## NO code needs to be stored in the root of your repository. You may rename the application folder if you like to your team's application name. But all source code related to your team's application should be stored inside the application folder.
