@@ -9,10 +9,10 @@ class Database:
         This Class will take the project app as a parameter and connect it to the given database.
         The tunneling code is for testing it in local machines, the server itself does not need to tunnel.
         """
-        self.mysql_user = "root"
-        self.mysql_pass = "team7"
-        self.db_port = 3306
-        self.db_name = "mydb"
+        mysql_user = "root"
+        mysql_pass = "team7"
+        db_port = 3306
+        db_name = "mydb"
 
         ################################################################################################################
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TUNNELING INFORMATION ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
@@ -30,17 +30,17 @@ class Database:
             ssh_address_or_host=(remote_host, remote_port),
             ssh_username=remote_user,
             ssh_pkey=remote_key,
-            remote_bind_address=(localhost, self.db_port),
+            remote_bind_address=(localhost, db_port),
         )
 
         server.start()
-        self.db_port = server.local_bind_port
+        db_port = server.local_bind_port
         ################################################################################################################
 
-        app.config['SQLALCHEMY_DATABASE_URI'] = r"mysql://%s:%s@127.0.0.1:%s/%s" % (self.mysql_user,
-                                                                                    self.mysql_pass,
-                                                                                    self.db_port,
-                                                                                    self.db_name)
+        app.config['SQLALCHEMY_DATABASE_URI'] = r"mysql://%s:%s@127.0.0.1:%s/%s" % (mysql_user,
+                                                                                    mysql_pass,
+                                                                                    db_port,
+                                                                                    db_name)
 
         # DB will be used for querying and inserting
         self.DB = SQLAlchemy(app)
@@ -51,7 +51,38 @@ class Database:
     def getTable(self, table):
         """
         Function will take table name as string parameter and return the database table
+
+        Following tables are available (case sensitive):
+            Airplane
+            Airport
+            BaggageClaim
+            Company
+            Employee
+            Employment
+            Flight
+            Gate
+            hires
+            Luggage
+            Passenger
+            Pilot
+            Ticket
+
+        For attribute name/info, please refer to sql code in the milestone 2 folder
         """
-        return getattr(self.Base.classes, table)
+        return self.DB.Table(table, self.DB.MetaData(), autoload=True, autoload_with=self.DB.engine)
+
+    def getFlight(self, flightID):
+        """
+        Example database query.
+        1. Get the table
+        2. Query the table via database
+        3. Add restrictions
+
+        'idFlight' is the name of the id attribute in the 'Flight' table
+        End query with all() to get all entries or first() to get first match.
+        """
+        Flight = self.getTable('Flight')
+        return self.DB.session.query(Flight).filter_by(idFlight=flightID).first()
+
 
     # Define classes here to access database
