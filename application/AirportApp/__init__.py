@@ -1,10 +1,12 @@
 from flask import Flask
 
-app = Flask(__name__)
+try:
+    from .routing import Routing
+except ModuleNotFoundError:
+    from routing import Routing
 
-@app.route('/')
-def homepage():
-    return "It works!"
+app = Flask(__name__)
+Routing(app)
 
 if __name__ == "__main__":
     app.run()
