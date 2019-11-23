@@ -46,7 +46,7 @@ class Database:
         self.DB = SQLAlchemy(app)
         # Base will be used to access tables
         self.Base = automap_base()
-        self.Base.prepare(self.DB.engine, reflect=True)
+        self.Base.prepare(self.DB.engine, reflect=True, schema=db_name)
 
     def getTable(self, table):
         """
@@ -84,5 +84,11 @@ class Database:
         Flight = self.getTable('Flight')
         return self.DB.session.query(Flight).filter_by(idFlight=flightID).first()
 
+    def addFlight(self, departure, arrival):
+        Flight = self.getTable('Flight')
+        newflight = Flight.insert().values(departure=departure,
+                                           arrival=arrival)
+        self.DB.session.execute(newflight)
+        self.DB.session.commit()
 
     # Define classes here to access database

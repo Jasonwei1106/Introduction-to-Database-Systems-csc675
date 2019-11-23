@@ -1,4 +1,4 @@
-from flask import render_template, url_for, redirect
+from flask import render_template, url_for, redirect, request
 
 try:
     from .database import Database
@@ -23,9 +23,17 @@ def Routing(app):
     @app.route('/example')
     def test():
         flight1 = db.getFlight('1')
+        db.addFlight('2019-11-24 16:38:29', '2019-11-24 22:38:35')
         return render_template('test.html',
                                title='test page',
                                flight=flight1)
+
+    @app.route('/form', methods=["GET", "POST"])
+    def form():
+        if request.method == "POST":
+            name = request.form['name']
+            db.addFlight('2019-11-24 16:38:29', '2019-11-24 22:38:35')
+            return render_template('home.html')
 
     @app.route('/redirect')
     def redtest():
