@@ -92,3 +92,21 @@ class Database:
         self.DB.session.commit()
 
     # Define classes here to access database
+
+    # FLIGHT TABLE
+    # Flight, Gate, Airplane, Pilot, BaggageClaim, Passenger Count
+
+    # GATE TABLE
+    # Gates
+
+    # SEARCH PASSENGER
+    # Passenger
+
+    # INSERT FLIGHT
+
+    # DELETE FLIGHT
+    # DELETE PASSENGER
+
+    # UPDATE GATE
+    # UPDATE AIRPLANE
+    # UPDATE PILOT
