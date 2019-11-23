@@ -20,8 +20,8 @@ def Routing(app):
         return render_template('home.html',
                                title='Airport Monitor')
 
-    @app.route('/example')
-    def test():
+    @app.route('/example/<string:airport>')
+    def test(airport):
         flight1 = db.getFlight('1')
         db.addFlight('2019-11-24 16:38:29', '2019-11-24 22:38:35')
         return render_template('test.html',
@@ -47,3 +47,22 @@ def Routing(app):
             request.args.get('title')
         """
         return redirect(url_for('index'))
+
+    # Define pages for project
+
+    # Page to display flight info
+    # Flight, Gate, Airplane, Pilot, BaggageClaim, Passenger Count
+
+    # Page to display gate info
+
+    # Page to search for passengers and display results
+
+    # Form to insert flight
+
+    # Page to delete flights
+    # Page to delete passengers
+
+    # Page to update gate gate
+    # Page to update gate airplane
+    # Page to update gate pilot
+
