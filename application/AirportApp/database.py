@@ -197,17 +197,34 @@ class Database:
             list.append((id, A, G, P, B, passCount))
         return list
 
-    # GATE TABLE
-    # Gates
+    # GATE TABLE, gives gate names and associated airplane
+    def getGate(self, airportID):
+        list = []
+        Gate = self.getTable('Gate')
+        retGate = self.DB.select([Gate.columns.name, Gate.columns.idAirplane]).where(Gate.columns.idAirplane == airportID)
+        _G = self.DB.session.execute(retGate)
+        for value in _G:
+            name = value[0]
+            associatedAirplane = value[1]
+            list.append((name, associatedAirplane))
+        return list
 
     # SEARCH PASSENGER
-    # Passenger
+    #    def getPassenger(self, name):
 
-    # INSERT FLIGHT
 
-    # DELETE FLIGHT
-    # DELETE PASSENGER
-
+    # DELETE FLIGHT, based on flight id
+    def delFlight(self, idFlight):
+        Flight = self.getTable('Flight')
+        self.DB.session.execute(self.DB.delete(Flight).where(Flight.columns.idFlight == idFlight))
+        self.DB.session.commit()
+        
+    # DELETE PASSENGER, based on passenger id
+    def delPassenger(self, idPassenger):
+        Passenger = self.getTable('Passenger')
+        self.DB.session.execute(self.DB.delete(Passenger).where(Passenger.idPassenger == idPassenger))
+        self.DB.session.commit()
+    
     # UPDATE GATE
     # UPDATE AIRPLANE
     # UPDATE PILOT
