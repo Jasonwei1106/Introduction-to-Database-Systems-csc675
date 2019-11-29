@@ -2,7 +2,6 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.automap import automap_base
 
 
-
 class Database:
 
     def __init__(self, app):
@@ -210,15 +209,17 @@ class Database:
         return list
 
     # SEARCH PASSENGER
-    #    def getPassenger(self, name):
-
+    def getPassenger(self, name):
+        Passenger = self.getTable('Passenger')
+        search = "%{}%".format(name)
+        return self.DB.session.query(Passenger).filter(Passenger.columns.name.like(search)).all()
 
     # DELETE FLIGHT, based on flight id
     def delFlight(self, idFlight):
         Flight = self.getTable('Flight')
         self.DB.session.execute(self.DB.delete(Flight).where(Flight.columns.idFlight == idFlight))
         self.DB.session.commit()
-        
+
     # DELETE PASSENGER, based on passenger id
     def delPassenger(self, idPassenger):
         Passenger = self.getTable('Passenger')
