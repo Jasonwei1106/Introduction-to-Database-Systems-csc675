@@ -20,10 +20,20 @@ def Routing(app):
         return render_template('home.html',
                                title='Airport Monitor')
 
+    @app.route('/home')
+    def homepage():
+        flights = db.getInfo()
+        return render_template('home.html', title='whatever', flights=flights)
+
     @app.route('/example/<string:airport>')
     def test(airport):
         flight1 = db.getFlight('1')
         db.addFlight('2019-11-24 16:38:29', '2019-11-24 22:38:35')
+
+        flightList = []
+        for v in db.getInfo(1):
+            flight, airplane, gate, pilot, baggage, pcount = v
+            flightList.append(flight)
         return render_template('test.html',
                                title='test page',
                                flight=flight1)
@@ -33,6 +43,8 @@ def Routing(app):
         if request.method == "POST":
             name = request.form['name']
             db.addFlight('2019-11-24 16:38:29', '2019-11-24 22:38:35')
+            return render_template('home.html')
+        else:
             return render_template('home.html')
 
     @app.route('/redirect')
@@ -50,10 +62,18 @@ def Routing(app):
 
     # Define pages for project
 
-    # Page to display flight info
-    # Flight, Gate, Airplane, Pilot, BaggageClaim, Passenger Count
+    # JASON:
 
-    # Page to display gate info
+        # Page to display flight info
+        # Flight, Gate, Airplane, Pilot, BaggageClaim, Passenger Count
+
+        # Page to display gate info
+
+    # NAVNEET / PRATIK:
+        # Page to update gate
+        # Page to update airplane
+        # Page to update pilot
+
 
     # Page to search for passengers and display results
 
@@ -62,7 +82,4 @@ def Routing(app):
     # Page to delete flights
     # Page to delete passengers
 
-    # Page to update gate gate
-    # Page to update gate airplane
-    # Page to update gate pilot
 
