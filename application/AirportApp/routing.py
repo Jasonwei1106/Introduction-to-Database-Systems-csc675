@@ -20,6 +20,7 @@ def Routing(app):
         return render_template('home.html',
                                title='Airport Monitor')
 
+
     @app.route('/example/<string:airport>')
     def test(airport):
         flight1 = db.getFlight('1')
@@ -51,7 +52,15 @@ def Routing(app):
     # Define pages for project
 
     # Page to display flight info
-    # Flight, Gate, Airplane, Pilot, BaggageClaim, Passenger Count
+    @app.route('/flight')
+    def flight():
+        Flightcolumns = db.getInfo('1')
+        return render_template('flight.html',
+                               title='Airport Monitor',
+                               columns=Flightcolumns
+                               )
+
+# Flight, Gate, Airplane, Pilot, BaggageClaim, Passenger Count
 
     # Page to display gate info
 
