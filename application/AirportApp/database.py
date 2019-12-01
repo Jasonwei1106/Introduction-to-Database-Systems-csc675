@@ -227,5 +227,19 @@ class Database:
         self.DB.session.commit()
     
     # UPDATE GATE
+    def up_gate(self, idGate, idAirplane):
+        Gate = self.getTable('Gate')
+        self.DB.session.execute(self.DB.update(Gate).SET(idAirplane=idAirplane).where(Gate.idGate == idGate))
+        self.DB.session.commit()
+
     # UPDATE AIRPLANE
+    def up_airplane(self, idAirplane, idFlight):
+        Airplane = self.getTable('Airplane')
+        self.DB.session.execute(self.DB.update(Airplane).SET(idFlight=idFlight).where(Airplane.idAirplane == idAirplane))
+        self.DB.session.commit()
+
     # UPDATE PILOT
+    def up_pilot(self, idPilot, idFlight):
+        Pilot = self.getTable('Pilot')
+        self.DB.session.execute(self.DB.update(Pilot).SET(idFlight=idFlight).where(Pilot.idPilot == idPilot))
+        self.DB.session.commit()
