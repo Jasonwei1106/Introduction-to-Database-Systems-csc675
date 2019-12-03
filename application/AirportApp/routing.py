@@ -29,13 +29,6 @@ def Routing(app):
                                title='test page',
                                flight=flight1)
 
-    @app.route('/form', methods=["GET", "POST"])
-    def form():
-        if request.method == "POST":
-            name = request.form['name']
-            db.addFlight('2019-11-24 16:38:29', '2019-11-24 22:38:35')
-            return render_template('home.html')
-
     @app.route('/redirect')
     def redtest():
         """
@@ -60,14 +53,31 @@ def Routing(app):
                                columns=Flightcolumns
                                )
 
+    # Form to insert flight
+    @app.route('/form',methods=["POST","GET"])
+    def form():
+        if request.method == "POST":
+            gate = request.form['Gate']
+            airplane = request.form['Airplane']
+            pilot = request.form['Pilot']
+            passenger = request.form['Passenger']
+            print(gate)
+            #db.addFlight('2019-11-24 16:38:29', '2019-11-24 22:38:35')
+            return redirect(url_for('flight'))
+        else: return render_template('addflight.html')
+
 # Flight, Gate, Airplane, Pilot, BaggageClaim, Passenger Count
 
     # Page to display gate info
+    @app.route('/gateinfo',methods=["GET"])
+    def gate():
+        #get all gates info
+        gate = db.getGate('1')
+        print(gate)
+        return render_template('gate.html',
+                               columns=gate)
 
     # Page to search for passengers and display results
-
-    # Form to insert flight
-
     # Page to delete flights
     # Page to delete passengers
 

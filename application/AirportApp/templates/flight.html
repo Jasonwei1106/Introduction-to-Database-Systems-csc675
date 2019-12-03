@@ -8,6 +8,9 @@
     <div>
         <input type="text" placeholder="Search.."/>
     </div>
+    <div>
+        <button class="btn btn-primary" onclick="location.href='/form';">Add Flight</button>
+    </div>
     <div style="padding:10px">
         <table id='mytable'>
             <thead>
@@ -18,12 +21,12 @@
                   <th scope="col">Pilot</th>
                   <th scope="col">BaggageClaim</th>
                   <th scope="col">Passenger Count</th>
+                  <th scope="col"> Operation </th>
               </tr>
             </thead>
             <tbody>
                 {% for items in columns -%}
                 <tr>
-                    <button type="button" class="btn btn-link"> Edit </button>
                     <th scope="row">
                     {{items[0]}}
                     </th>
@@ -42,6 +45,10 @@
                     <td>{{ item }}</td>
                     {% endif %}
                     {%- endfor %}
+                    <td>
+                        <button type="button" class="btn btn-link"> Edit </button>
+                        <button type="button" class="btn btn-link"> Delete </button>
+                    </td>
                 </tr>
                 {%- endfor %}
                 </th>
