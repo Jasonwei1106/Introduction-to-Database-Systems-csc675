@@ -64,7 +64,8 @@ def Routing(app):
             ## Add the Flight based on the info here
             ## Have to input in the database
             return redirect(url_for('flight'))
-        else: return render_template('addflight.html')
+        else:
+            return render_template('addflight.html')
 
 # Flight, Gate, Airplane, Pilot, BaggageClaim, Passenger Count
 
