@@ -200,7 +200,7 @@ class Database:
     def getGate(self, airportID):
         list = []
         Gate = self.getTable('Gate')
-        retGate = self.DB.select([Gate.columns.name, Gate.columns.idAirplane]).where(Gate.columns.idAirplane == airportID)
+        retGate = self.DB.select([Gate.columns.name, Gate.columns.idAirplane]).where(Gate.columns.idAirport == airportID)
         _G = self.DB.session.execute(retGate)
         for value in _G:
             name = value[0]

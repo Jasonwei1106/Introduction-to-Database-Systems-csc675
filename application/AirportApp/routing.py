@@ -71,8 +71,6 @@ def Routing(app):
     # Page to display gate info
     @app.route('/gateinfo',methods=["GET"])
     def gate():
-        #get all gates info
-        # Three Columns gate Airplane last one(If airplane is null then return empty)
         gate = db.getGate('1')
         print(gate)
         return render_template('gate.html',
