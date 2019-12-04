@@ -61,8 +61,8 @@ def Routing(app):
             airplane = request.form['Airplane']
             pilot = request.form['Pilot']
             passenger = request.form['Passenger']
-            print(gate)
-            #db.addFlight('2019-11-24 16:38:29', '2019-11-24 22:38:35')
+            ## Add the Flight based on the info here
+            ## Have to input in the database
             return redirect(url_for('flight'))
         else: return render_template('addflight.html')
 
@@ -72,6 +72,7 @@ def Routing(app):
     @app.route('/gateinfo',methods=["GET"])
     def gate():
         #get all gates info
+        # Three Columns gate Airplane last one(If airplane is null then return empty)
         gate = db.getGate('1')
         print(gate)
         return render_template('gate.html',

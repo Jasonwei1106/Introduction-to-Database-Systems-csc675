@@ -1,7 +1,8 @@
 {% extends "header.html" %}
 {% block body %}
-<strong>Add your flight</strong>
-<form  action="{{ url_for('form') }}" method="post">
+<p class="font-weight-bold text-center py-2">Add Flight</p>
+<div class="px-4">
+<form action="{{ url_for('form') }}" method="post">
     <div action="" class="form-group">
         <label>Gate Number</label>
         <input type="text" name="Gate" class="form-control"  placeholder="Enter Gate number">
@@ -24,4 +25,5 @@
     </div>
   <input type="submit" value="Submit">
 </form>
+</div>
 {% endblock %}
