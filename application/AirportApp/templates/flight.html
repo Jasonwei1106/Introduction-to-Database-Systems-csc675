@@ -1,33 +1,59 @@
-<!DOCTYPE html>
-<head>
+{% extends "header.html" %}
+
+{% block body %}
     <style>
         td { border:1px solid #333; padding:4px 8px;}
         th { test-align:left; background-color: #3a6070; padding: 4px 30px 4px 8px; color:#FFF;}
     </style>
-    <meta charset="UTF-8">
     <p> something </p>
     <div>
         <input type="text" placeholder="Search.."/>
     </div>
+    <div>
+        <button class="btn btn-primary" onclick="location.href='/form';">Add Flight</button>
+    </div>
     <div style="padding:10px">
-
-        <table>
-            <tr id="demo">
-                <th> First col</th>
-                <th> Second col</th>
-                {% for item in columns %}
-                <li>{{ item }}</li>
-                {% endfor %}
-            </tr>
+        <table id='mytable'>
+            <thead>
+              <tr>
+                  <th scope="col">Flight</th>
+                  <th scope="col">Gate</th>
+                  <th scope="col">Airplane</th>
+                  <th scope="col">Pilot</th>
+                  <th scope="col">BaggageClaim</th>
+                  <th scope="col">Passenger Count</th>
+                  <th scope="col"> Operation </th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for items in columns -%}
+                <tr>
+                    <th scope="row">
+                    {{items[0]}}
+                    </th>
+                    {% for item in items[1:] -%}
+                        {% if loop.index==3 %}
+                            {% if item|length !=0 %}
+                                {%set allpilot = item[0] %}
+                                {% else %}
+                                <td>None</td>
+                            {% endif %}
+                            {% for pilot in item -%}
+                                {% set allpilot = allpilot+pilot %}
+                                <td>{{allpilot}}</td>
+                            {%- endfor %}
+                        {% else %}
+                            <td>{{ item }}</td>
+                        {% endif %}
+                    {%- endfor %}
+                    <td>
+                        <button type="button" class="btn btn-link"> Edit </button>
+                        <button type="button" class="btn btn-link"> Delete </button>
+                    </td>
+                </tr>
+                {%- endfor %}
+                </th>
+            </tbody>
         </table>
     </div>
-
-</head>
-<body>
-
-<!--    Python code can be inserted with these brackets         -->
-<!--    For logic code, use single brackets and % symbols       -->
-<!--    For variables, use double brackets like the title above -->
-    {% block body %}{% endblock %}
-
-</body>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "header.html" %}
+
+{% block body %}
+    <table id='mytable' class="table table-sbg">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Gate</th>
+                <th scope="col">Airplane</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for items in columns -%}
+            <tr>
+                <th scope="row">
+                    {{loop.index}}
+                </th>
+                {% for item in items%}
+                <td>{{item}}</td>
+                 {% endfor %}
+            </tr>
+            {%- endfor %}
+        </tbody>
+    </table>
+{% endblock %}
