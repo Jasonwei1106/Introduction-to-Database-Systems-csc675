@@ -5,6 +5,7 @@ try:
 except ModuleNotFoundError:
     from database import Database
 
+
 # This function will be called by init on server start up and establish all routes
 
 def Routing(app):
@@ -17,8 +18,60 @@ def Routing(app):
     @app.route('/')
     def index():
         # Variables and functions can be passed into html files to use
-        return render_template('home.html',
-                               title='Airport Monitor')
+        return render_template('coverpage.html',
+                               title='Oakland Airport')
+
+    @app.route('/home')
+    def homepage():
+        return render_template('home.html', title='Oakland Airport Home Page')
+
+    @app.route('/flight')
+    def flights():
+        return render_template('flight.html', title='Flights')
+
+    @app.route('/addFlight')
+    def addFlights():
+        return render_template('addFlight.html', title='Add a Flight')
+
+    @app.route('/deleteFlight')
+    def deleteFlights():
+        return render_template('deleteFlight.html', title='Delete a Flight')
+
+    @app.route('/passenger')
+    def passengers():
+        return render_template('passenger.html', title='Welcome Passengers')
+
+    @app.route('/infoPassenger')
+    def infoPassengers():
+        return render_template('infoPassenger.html', title='Passengers Info')
+
+    @app.route('/deletePassenger')
+    def deletePassengers():
+        return render_template('deletePassenger.html', title='Delete a Passengers')
+
+    @app.route('/gate')
+    def gate():
+        return render_template('gate.html', title='Gate')
+
+    @app.route('/gateInfo')
+    def gateInfo():
+        return render_template('gateInfo.html', title='Gate Info')
+
+    @app.route('/gateUpdate')
+    def gateUpdate():
+        return render_template('gateUpdate.html', title='Gate Update')
+
+    @app.route('/airplane')
+    def airplane():
+        return render_template('airplane.html', title='Airplanes')
+
+    @app.route('/pilot')
+    def pilot():
+        return render_template('pilot.html', title='Pilots')
+
+    @app.route('/support')
+    def support():
+        return render_template('support.html', title='Support')
 
     @app.route('/example/<string:airport>')
     def test(airport):
@@ -65,4 +118,3 @@ def Routing(app):
     # Page to update gate gate
     # Page to update gate airplane
     # Page to update gate pilot
-
