@@ -176,7 +176,7 @@ class Database:
             retAirplane = self.DB.select([Airplane.columns.name]).where(Airplane.columns.idFlight == id)
             retPilot = self.DB.select([Pilot.columns.name]).where(Pilot.columns.idFlight == id)
             retBag = self.DB.select([BaggageClaim.columns.name]).where(BaggageClaim.columns.idAirport == airportID)
-            passCount = self.DB.session.query(Passenger).filter(Passenger.columns.idFlight == id).count()
+            passCount = [self.DB.session.query(Passenger).filter(Passenger.columns.idFlight == id).count()]
 
             # execute sql code
             _A = self.DB.session.execute(retAirplane)
@@ -188,11 +188,11 @@ class Database:
 
             # grab airplane ID for gate
             airplaneIDSQL = self.DB.select([Airplane.columns.idAirplane]).where(Airplane.columns.idFlight == id)
-            airplaneID = self.DB.session.execute(airplaneIDSQL)
-            retGate = self.DB.select([Gate.columns.name]).where(Gate.columns.idAirplane == airplaneID and Gate.columns.idAirport == airportID)
+            _airplaneID = self.DB.session.execute(airplaneIDSQL)
+            airplaneID = [row[0] for row in _airplaneID]
+            retGate = self.DB.select([Gate.columns.name]).where(Gate.columns.idAirplane == airplaneID)
             _G = self.DB.session.execute(retGate)
             G = [row[0] for row in _G]
-
             list.append((id, A, G, P, B, passCount))
         return list
 

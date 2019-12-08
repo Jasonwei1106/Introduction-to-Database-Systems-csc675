@@ -31,6 +31,7 @@ def Routing(app):
     def flights():
         # Flight, Gate, Airplane, Pilot, BaggageClaim, Passenger Count
         Flightcolumns = db.getInfo('1')
+        print(Flightcolumns)
         return render_template('flight.html',
                                title='Airport Monitor',
                                columns=Flightcolumns
@@ -68,9 +69,10 @@ def Routing(app):
         return render_template('infoPassenger.html', title='Passengers Info')
 
     # Page will delete specified passenger
-    @app.route('/deletePassenger')
-    def deletePassengers():
-        return render_template('deletePassenger.html', title='Delete a Passengers')
+    @app.route('/deletePassenger/<int:pid>')
+    def deletePassengers(pid):
+        db.delPassenger(pid)
+        return redirect(url_for('homepage'))
 
     # Page will display all gates
     @app.route('/gate')
@@ -88,18 +90,22 @@ def Routing(app):
 
     # Page will update gate info
     # NOTE: This feature will probably be built into gate page and not need its own
-    @app.route('/gateUpdate')
-    def gateUpdate():
+    @app.route('/gateUpdate/<int:gid>')
+    def gateUpdate(gid):
+        if request.method == "POST":
+            airplaneID = request.form['airplaneID']
+            db.up_gate(gid, airplaneID)
+            return render_template('gateUpdate.html')
         return render_template('gateUpdate.html', title='Gate Update')
 
     # Page will update airplane info
-    @app.route('/airplane')
-    def airplane():
+    @app.route('/airplaneUpdate')
+    def airplaneUpdate():
         return render_template('airplane.html', title='Airplanes')
 
     # Page will update pilot info
-    @app.route('/pilot')
-    def pilot():
+    @app.route('/pilotUpdate')
+    def pilotUpdate():
         return render_template('pilot.html', title='Pilots')
 
     # General FAQ/about page for our project
@@ -158,6 +164,7 @@ def Routing(app):
         # Flight, Gate, Airplane, Pilot, BaggageClaim, Passenger Count
 
         # Page to display gate info
+        # Page to add flight
 
     # NAVNEET / PRATIK:
         # Page to update gate
