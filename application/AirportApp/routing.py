@@ -31,23 +31,21 @@ def Routing(app):
     def flights():
         # Flight, Gate, Airplane, Pilot, BaggageClaim, Passenger Count
         Flightcolumns = db.getInfo('1')
-        print(Flightcolumns)
         return render_template('flight.html',
                                title='Airport Monitor',
                                columns=Flightcolumns
                                )
 
     # Page will contain form to add a flight
-    @app.route('/addFlight')
-    def addFlights():
+    @app.route('/form', methods=["GET", "POST"])
+    def form():
         if request.method == "POST":
-            gate = request.form['Gate']
-            airplane = request.form['Airplane']
-            pilot = request.form['Pilot']
-            passenger = request.form['Passenger']
+            departure_time = request.form['departure']
+            arrival_time = request.form['arrival']
+            print(departure_time)
             # Add the Flight based on the info here
             # Have to input in the database
-            return redirect(url_for('flight'))
+            return redirect(url_for('flights'))
         else:
             return render_template('addflight.html')
 
@@ -78,7 +76,6 @@ def Routing(app):
     @app.route('/gate')
     def gate():
         gate = db.getGate('1')
-        print(gate)
         return render_template('gate.html',
                                columns=gate)
 
@@ -129,15 +126,6 @@ def Routing(app):
         return render_template('test.html',
                                title='test page',
                                flight=flight1)
-
-    @app.route('/form', methods=["GET", "POST"])
-    def form():
-        if request.method == "POST":
-            name = request.form['name']
-            db.addFlight('2019-11-24 16:38:29', '2019-11-24 22:38:35')
-            return render_template('home.html')
-        else:
-            return render_template('home.html')
 
     @app.route('/redirect')
     def redtest():
