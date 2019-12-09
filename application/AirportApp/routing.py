@@ -53,13 +53,18 @@ def Routing(app):
 
     # Page will delete a specified flight
     # NOTE: This feature will probably be built into flight page and not need its own
-    @app.route('/deleteFlight')
-    def deleteFlights():
+    @app.route('/deleteFlight/<int:fid>')
+    def deleteFlights(fid):
+        db.delFlight(fid)
         return render_template('deleteFlight.html', title='Delete a Flight')
 
     # Page will search for passengers and display them
-    @app.route('/passenger')
+    @app.route('/passenger', methods=["GET", "POST"])
     def passengers():
+        if request.method == "POST":
+            name = request.form['name']
+            db.getPassenger(name)
+            return render_template('passenger.html')
         return render_template('passenger.html', title='Welcome Passengers')
 
     # Page will display all passengers
@@ -99,20 +104,20 @@ def Routing(app):
         return render_template('gateUpdate.html', title='Gate Update')
 
     # Page will update airplane info
-    @app.route('/airplaneUpdate/<int:gid>')
-    def airplaneUpdate(gid):
+    @app.route('/airplaneUpdate/<int:apid>')
+    def airplaneUpdate(apid):
         if request.method == "POST":
             flightID = request.form['flightID']
-            db.up_airplane(gid, flightID)
+            db.up_airplane(apid, flightID)
             return render_template('airplaneUpdate.html')
         return render_template('airplane.html', title='Airplanes Update')
 
     # Page will update pilot info
-    @app.route('/pilotUpdate')
-    def pilotUpdate():
+    @app.route('/pilotUpdate/<int:piid>')
+    def pilotUpdate(piid):
         if request.method == "POST":
             flightID = request.form['flightID']
-            db.up_pilot(gid, flightID)
+            db.up_pilot(piid, flightID)
             return render_template('pilotUpdate.html')
         return render_template('pilot.html', title='Pilots Update')
 
