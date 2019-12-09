@@ -56,70 +56,62 @@ def Routing(app):
     @app.route('/deleteFlight/<int:fid>')
     def deleteFlights(fid):
         db.delFlight(fid)
-        return render_template('deleteFlight.html', title='Delete a Flight')
+        return redirect(url_for('flights'))
 
     # Page will search for passengers and display them
+    # Empty searches will get all passengers
     @app.route('/passenger', methods=["GET", "POST"])
     def passengers():
         if request.method == "POST":
             name = request.form['name']
-            db.getPassenger(name)
-            return render_template('passenger.html')
-        return render_template('passenger.html', title='Welcome Passengers')
-
-    # Page will display all passengers
-    # NOTE: This can be built into the passenger search
-    @app.route('/infoPassenger')
-    def infoPassengers():
-        return render_template('infoPassenger.html', title='Passengers Info')
+            passengerResults = db.getPassenger(name)
+            return render_template('passenger.html', results=passengerResults)
+        else:
+            return render_template('passenger.html', title='Check Passengers')
 
     # Page will delete specified passenger
     @app.route('/deletePassenger/<int:pid>')
     def deletePassengers(pid):
         db.delPassenger(pid)
-        return redirect(url_for('homepage'))
+        return redirect(url_for('passengers'))
 
     # Page will display all gates
     @app.route('/gate')
     def gate():
         gate = db.getGate('1')
-        print(gate)
-        return render_template('gate.html',
+        return render_template('gate.html', title='Gate Info',
                                columns=gate)
-
-    # Page will display all gate?
-    # NOTE: Not sure difference between this one and above
-    @app.route('/gateInfo')
-    def gateInfo():
-        return render_template('gateInfo.html', title='Gate Info')
 
     # Page will update gate info
     # NOTE: This feature will probably be built into gate page and not need its own
     @app.route('/gateUpdate/<int:gid>')
     def gateUpdate(gid):
         if request.method == "POST":
-            airplaneID = request.form['airplaneID']
-            db.up_gate(gid, airplaneID)
+            updatedAirplaneID = request.form['airplaneID']
+            db.up_gate(gid, updatedAirplaneID)
             return render_template('gateUpdate.html')
-        return render_template('gateUpdate.html', title='Gate Update')
+        else:
+            return render_template('gateUpdate.html', title='Gate Update')
 
     # Page will update airplane info
     @app.route('/airplaneUpdate/<int:apid>')
     def airplaneUpdate(apid):
         if request.method == "POST":
-            flightID = request.form['flightID']
-            db.up_airplane(apid, flightID)
+            updatedFlightID = request.form['flightID']
+            db.up_airplane(apid, updatedFlightID)
             return render_template('airplaneUpdate.html')
-        return render_template('airplane.html', title='Airplanes Update')
+        else:
+            return render_template('airplaneUpdate.html', title='Airplanes Update')
 
     # Page will update pilot info
     @app.route('/pilotUpdate/<int:piid>')
     def pilotUpdate(piid):
         if request.method == "POST":
-            flightID = request.form['flightID']
-            db.up_pilot(piid, flightID)
+            updatedFlightID = request.form['flightID']
+            db.up_pilot(piid, updatedFlightID)
             return render_template('pilotUpdate.html')
-        return render_template('pilot.html', title='Pilots Update')
+        else:
+            return render_template('pilotUpdate.html', title='Pilots Update')
 
     # General FAQ/about page for our project
     @app.route('/support')
