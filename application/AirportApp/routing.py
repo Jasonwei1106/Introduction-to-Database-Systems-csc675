@@ -99,14 +99,22 @@ def Routing(app):
         return render_template('gateUpdate.html', title='Gate Update')
 
     # Page will update airplane info
-    @app.route('/airplaneUpdate')
-    def airplaneUpdate():
-        return render_template('airplane.html', title='Airplanes')
+    @app.route('/airplaneUpdate/<int:gid>')
+    def airplaneUpdate(gid):
+        if request.method == "POST":
+            flightID = request.form['flightID']
+            db.up_airplane(gid, flightID)
+            return render_template('airplaneUpdate.html')
+        return render_template('airplane.html', title='Airplanes Update')
 
     # Page will update pilot info
     @app.route('/pilotUpdate')
     def pilotUpdate():
-        return render_template('pilot.html', title='Pilots')
+        if request.method == "POST":
+            flightID = request.form['flightID']
+            db.up_pilot(gid, flightID)
+            return render_template('pilotUpdate.html')
+        return render_template('pilot.html', title='Pilots Update')
 
     # General FAQ/about page for our project
     @app.route('/support')
