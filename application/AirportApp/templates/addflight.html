@@ -1,6 +1,10 @@
 {% extends "header.html" %}
 {% block body %}
-<p class="font-weight-bold text-center py-2">Add Flight</p>
+<div class="row" style="margin-top: 80px">
+    <div class="col-md-12">
+        <h3 class="text-center">Add a New Flight</h3>
+    </div>
+</div>
 <div class="px-4">
 <form action="{{ url_for('form') }}" method="post">
     <div class="form-group">
@@ -11,7 +15,7 @@
         <label>Arrival Time</label>
         <input class="form-control" type="datetime-local" value="2019-12-06T13:45:00" name="arrival">
     </div>
-  <input type="submit" value="Submit">
+  <input class="btn btn-primary" type="submit" value="Submit">
 </form>
 </div>
 {% endblock %}
