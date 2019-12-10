@@ -51,72 +51,64 @@ def Routing(app):
 
     # Page will delete a specified flight
     # NOTE: This feature will probably be built into flight page and not need its own
-    @app.route('/deleteFlight/<int:fid>')
-    def deleteFlights(fid):
-        db.delFlight(fid)
-        return redirect(url_for('flights'))
+    @app.route('/deleteFlight')
+    def deleteFlights():
+        return render_template('deleteFlight.html', title='Delete a Flight')
 
     # Page will search for passengers and display them
-    # Empty searches will get all passengers
-    @app.route('/passenger', methods=["GET", "POST"])
+    @app.route('/passenger')
     def passengers():
-        if request.method == "POST":
-            name = request.form['name']
-            passengerResults = db.getPassenger(name)
-            return render_template('passenger.html',
-                                   title='Check Passengers',
-                                   results=passengerResults)
-        else:
-            return render_template('passenger.html', title='Check Passengers')
+        return render_template('passenger.html', title='Welcome Passengers')
+
+    # Page will display all passengers
+    # NOTE: This can be built into the passenger search
+    @app.route('/infoPassenger')
+    def infoPassengers():
+        return render_template('infoPassenger.html', title='Passengers Info')
 
     # Page will delete specified passenger
     @app.route('/deletePassenger/<int:pid>')
     def deletePassengers(pid):
         db.delPassenger(pid)
-        return redirect(url_for('passengers'))
+        return redirect(url_for('homepage'))
 
     # Page will display all gates
     @app.route('/gate')
     def gate():
         gate = db.getGate('1')
-        return render_template('gate.html', title='Gate Info',
+        return render_template('gate.html',
                                columns=gate)
+
+    # Page will display all gate?
+    # NOTE: Not sure difference between this one and above
+    @app.route('/gateInfo')
+    def gateInfo():
+        return render_template('gateInfo.html', title='Gate Info')
 
     # Page will update gate info
     # NOTE: This feature will probably be built into gate page and not need its own
-    @app.route('/gateUpdate/<int:gid>')
-    def gateUpdate(gid):
+    @app.route('/gateupdate/<int:gid>', methods=["GET", "POST"])
+    def gateupdate(gid):
         if request.method == "POST":
-            updatedAirplaneID = request.form['airplaneID']
-            db.up_gate(gid, updatedAirplaneID)
+            gatename = request.form['gate']
+            flight = request.form['flight']
+            print(gatename)
             return redirect(url_for('gate'))
         else:
-            return render_template('gateUpdate.html', title='Update Gate')
-
-    @app.route('/airplane')
-    def airplane():
-        airplanes = db.getAirplanes()
-        return render_template('airplane.html', title='Airplane Info', airplanes=airplanes)
+            gate = db.getGate('1')
+            print(gid)
+            return render_template('gateUpdate.html',gid= gid,
+                               gatevalue=gate[gid-1][0], flight=gate[gid-1][1])
 
     # Page will update airplane info
-    @app.route('/airplaneUpdate/<int:apid>')
-    def airplaneUpdate(apid):
-        if request.method == "POST":
-            updatedFlightID = request.form['flightID']
-            db.up_airplane(apid, updatedFlightID)
-            return redirect(url_for('airplane'))
-        else:
-            return render_template('airplaneUpdate.html')
+    @app.route('/airplaneUpdate')
+    def airplaneUpdate():
+        return render_template('airplane.html', title='Airplanes')
 
     # Page will update pilot info
-    @app.route('/pilotUpdate/<int:piid>')
-    def pilotUpdate(piid):
-        if request.method == "POST":
-            updatedFlightID = request.form['flightID']
-            db.up_pilot(piid, updatedFlightID)
-            return redirect(url_for('airplane'))
-        else:
-            return render_template('pilotUpdate.html')
+    @app.route('/pilotUpdate')
+    def pilotUpdate():
+        return render_template('pilot.html', title='Pilots')
 
     # General FAQ/about page for our project
     @app.route('/support')
