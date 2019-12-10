@@ -65,7 +65,9 @@ def Routing(app):
         if request.method == "POST":
             name = request.form['name']
             passengerResults = db.getPassenger(name)
-            return render_template('passenger.html', results=passengerResults)
+            return render_template('passenger.html',
+                                   title='Check Passengers',
+                                   results=passengerResults)
         else:
             return render_template('passenger.html', title='Check Passengers')
 
@@ -89,9 +91,14 @@ def Routing(app):
         if request.method == "POST":
             updatedAirplaneID = request.form['airplaneID']
             db.up_gate(gid, updatedAirplaneID)
-            return render_template('gateUpdate.html')
+            return redirect(url_for('gate'))
         else:
-            return render_template('gateUpdate.html', title='Gate Update')
+            return render_template('gateUpdate.html', title='Update Gate')
+
+    @app.route('/airplane')
+    def airplane():
+        airplanes = db.getAirplanes()
+        return render_template('airplane.html', title='Airplane Info', airplanes=airplanes)
 
     # Page will update airplane info
     @app.route('/airplaneUpdate/<int:apid>')
@@ -99,9 +106,9 @@ def Routing(app):
         if request.method == "POST":
             updatedFlightID = request.form['flightID']
             db.up_airplane(apid, updatedFlightID)
-            return render_template('airplaneUpdate.html')
+            return redirect(url_for('airplane'))
         else:
-            return render_template('airplaneUpdate.html', title='Airplanes Update')
+            return render_template('airplaneUpdate.html')
 
     # Page will update pilot info
     @app.route('/pilotUpdate/<int:piid>')
@@ -109,9 +116,9 @@ def Routing(app):
         if request.method == "POST":
             updatedFlightID = request.form['flightID']
             db.up_pilot(piid, updatedFlightID)
-            return render_template('pilotUpdate.html')
+            return redirect(url_for('airplane'))
         else:
-            return render_template('pilotUpdate.html', title='Pilots Update')
+            return render_template('pilotUpdate.html')
 
     # General FAQ/about page for our project
     @app.route('/support')
