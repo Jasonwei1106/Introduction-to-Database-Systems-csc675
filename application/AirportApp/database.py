@@ -200,13 +200,19 @@ class Database:
     def getGate(self, airportID):
         list = []
         Gate = self.getTable('Gate')
-        retGate = self.DB.select([Gate.columns.name, Gate.columns.idAirplane]).where(Gate.columns.idAirport == airportID)
+        retGate = self.DB.select([Gate.columns.idGate, Gate.columns.name, Gate.columns.idAirplane]). \
+            where(Gate.columns.idAirport == airportID)
         _G = self.DB.session.execute(retGate)
         for value in _G:
-            name = value[0]
-            associatedAirplane = value[1]
-            list.append((name, associatedAirplane))
+            id = value[0]
+            name = value[1]
+            associatedAirplane = value[2]
+            list.append((id, name, associatedAirplane))
         return list
+
+    def getAirplanes(self):
+        Airplane = self.getTable('Airplane')
+        return self.DB.session.query(Airplane).all()
 
     # SEARCH PASSENGER
     def getPassenger(self, name):
@@ -217,13 +223,13 @@ class Database:
     # DELETE FLIGHT, based on flight id
     def delFlight(self, idFlight):
         Flight = self.getTable('Flight')
-        self.DB.session.execute(self.DB.delete(Flight).where(Flight.columns.idFlight == idFlight))
+        self.DB.session.execute(Flight.delete().where(Flight.columns.idFlight == idFlight))
         self.DB.session.commit()
 
     # DELETE PASSENGER, based on passenger id
     def delPassenger(self, idPassenger):
         Passenger = self.getTable('Passenger')
-        self.DB.session.execute(self.DB.delete(Passenger).where(Passenger.idPassenger == idPassenger))
+        self.DB.session.execute(Passenger.delete().where(Passenger.columns.idPassenger == idPassenger))
         self.DB.session.commit()
     
     # UPDATE GATE
