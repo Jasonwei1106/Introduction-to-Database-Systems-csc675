@@ -38,7 +38,7 @@ def Routing(app):
 
     # Page will contain form to add a flight
     @app.route('/addFlight', methods=["GET", "POST"])
-    def form():
+    def addFlight():
         if request.method == "POST":
             departure_time = request.form['departure']
             arrival_time = request.form['arrival']
