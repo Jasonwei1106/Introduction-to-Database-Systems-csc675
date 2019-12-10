@@ -14,29 +14,6 @@ class Database:
         db_port = 3306
         db_name = "mydb"
 
-        ################################################################################################################
-        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ TUNNELING INFORMATION ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
-        #                   This is needed only for local testing. Remove before merging into master                   #
-        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
-        from sshtunnel import SSHTunnelForwarder
-
-        remote_user = "ubuntu"
-        remote_key = "./server/675team7.pem"
-        remote_host = "ec2-18-223-133-52.us-east-2.compute.amazonaws.com"
-        remote_port = 22
-        localhost = "127.0.0.1"
-
-        server = SSHTunnelForwarder(
-            ssh_address_or_host=(remote_host, remote_port),
-            ssh_username=remote_user,
-            ssh_pkey=remote_key,
-            remote_bind_address=(localhost, db_port),
-        )
-
-        server.start()
-        db_port = server.local_bind_port
-        ################################################################################################################
-
         app.config['SQLALCHEMY_DATABASE_URI'] = r"mysql://%s:%s@127.0.0.1:%s/%s" % (mysql_user,
                                                                                     mysql_pass,
                                                                                     db_port,
