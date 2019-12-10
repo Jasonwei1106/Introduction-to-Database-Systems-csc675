@@ -1,130 +1,123 @@
-        <!DOCTYPE html>
-        <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
-        <head>
-         <meta charset="UTF-8">
+<head>
+    <meta charset="UTF-8">
 
-            <title>{{ title }}</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-            <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
-            <link rel = "shortcut icon" href="{{ url_for('static' , filename = 'open-iconic/png/airplane.png')}}">
-            <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-            <script type="text/javascript" src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
-        </head>
+    <title>{{ title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ url_for('static' , filename = 'open-iconic/png/airplane.png')}}">
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
+</head>
 
-        <body>
+<body>
 
+<header>
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="col-md-2"></div>
+            <ul class="col-md-8 navbar-nav mr-auto mt-2 mt-lg-0">
+                <div>
+                    <li>
+                        <a class="navbar-brand" href=/home>
+                            <img src=" {{ url_for('static' , filename = 'open-iconic/png/airplane.png') }}"
+                                 width="30"
+                                 height="30" class="d-inline-block align-top" alt=""> Airport of Oakland
+                        </a>
+                    </li>
+                </div>
 
-         <header>
-
-             <div>
-
-                    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                             <div>
-                                  <li>
-                                    <a class="navbar-brand" href= /home>
-                                        <img src=" {{ url_for('static' , filename = 'open-iconic/png/airplane.png') }}" width="30" height="30" class="d-inline-block align-top" alt=""> Airport of Oakland
-                                    </a>
-                                  </li>
-                             </div>
-
-                               <div>
-                                 <li class="nav-item active">
-                                         <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                         Flights
-                                         </a>
-                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="/flight">Flights</a>
-                                              <div class="dropdown-divider"></div>
-                                         <a class="dropdown-item" href="/addFlight">Add Flight</a>
-                                             <div class="dropdown-divider"></div>
-                                         <a class="dropdown-item" href="/deleteFlight">Delete Flight</a>
-                                    </div>
-                                    </li>
-                               </div>
-
-
-                                 <div>
-                                    <li class="nav-item active">
-                                         <a class="nav-link dropdown-toggle" href="/passenger" id="navbarDropdown" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                         Passenger
-                                         </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                         <a class="dropdown-item" href="/passenger">Passanger Info</a>
-                                            <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="/infoPassenger">Passanger Info</a>
-                                             <div class="dropdown-divider"></div>
-                                      <a class="dropdown-item" href="/deletePassenger"> Delete Passenger</a>
-
-                                     </div>
-                                 </li>
-                                 </div>
-
-                                <div>
-                                    <li class="nav-item active">
-                                         <a class="nav-link dropdown-toggle" href="gate.html" id="navbarDropdown" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                         Gate
-                                         </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                         <a class="dropdown-item" href="/gate">Gate</a>
-                                        <div class="dropdown-divider"></div>
-                                         <a class="dropdown-item" href="/gateInfo">Gate Info</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="/gateUpdate">Gate Update</a>
-
-                                    </div>
-                                 </li>
-                                 </div>
-
-                                     <div>
-                                         <li class="nav-item active ">
-                                             <a class="nav-link" href="/pilot"  role="button" aria-haspopup="true" >Pilot</a>
-                                         </li>
-                                     </div>
-
-                                    <div>
-                                         <li class="nav-item active">
-                                             <a class="nav-link" href="/airplane"  role="button"  aria-haspopup="true" >Airplane</a>
-
-                                         </li>
-                                     </div>
+                <div>
+                    <li class="nav-item active">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            Flights
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/flight">Flights</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/addFlight">Add Flight</a>
+                        </div>
+                    </li>
+                </div>
 
 
+                <div>
+                    <li class="nav-item active ">
+                        <a class="nav-link" href="/passenger" role="button" aria-haspopup="true">Passenger</a>
+                    </li>
+                </div>
 
-                             </ul>
+                <div>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/airplane" role="button" aria-haspopup="true">Airplane</a>
 
-                                      <form class="form-inline my-2 my-lg-0">
-                                         <input  class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                                           <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
-                                    </form>
-                     </nav>
-             </div>
+                    </li>
+                </div>
+
+                <div>
+                    <li class="nav-item active">
+                        <a class="nav-link dropdown-toggle" href="gate.html" id="navbarDropdown" role="button"
+                           id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Gate
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/gate">Gate</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/gateInfo">Gate Info</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/gateUpdate">Gate Update</a>
+
+                        </div>
+                    </li>
+                </div>
+
+                <div>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/airplane" role="button" aria-haspopup="true">Airplane</a>
+
+                    </li>
+                </div>
+
+            </ul>
+            <div class="col-md-2"></div>
+
+        </nav>
+    </div>
 
 
+</header>
 
+<!--    Python code can be inserted with these brackets         -->
+<!--    For logic code, use single brackets and % symbols       -->
+<!--    For variables, use double brackets like the title above -->
+<div class="container-fluid">
+    <div class="container">
+        <div class="row" style="min-height: 100vh;">
+            <div class="col-12 bg-light">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
+</body>
 
-         </header>
-     </body>
-        <footer>
-             <div>
-                <nav class="navbar fixed-bottom  navbar-dark bg-dark ">
-                    <a href="/support">
-                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Support</button>
-                    </a>
-                </nav>
-             </div>
+<footer>
+    <div>
+        <nav class="navbar fixed-bottom  navbar-dark bg-dark">
+            <div class="col-md-4"></div>
+            <div class="col-md-4 text-center">
+                CSC675 - Team 7
+                <a href="/support">
+                    <button class="btn btn-primary btn-lg my-2 my-sm-0" type="submit">Support</button>
+                </a>
+            </div>
+            <div class="col-md-4"></div>
 
-
-        </footer>
-
-
-
-            <!--    Python code can be inserted with these brackets         -->
-        <!--    For logic code, use single brackets and % symbols       -->
-        <!--    For variables, use double brackets like the title above -->
-            {% block body %}{% endblock %}
-
-
-        </html>
+        </nav>
+    </div>
+</footer>
+</html>
 
