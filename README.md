@@ -2,7 +2,7 @@
 Team 07
 
 # Project URL
-ec2-18-223-133-52.us-east-2.compute.amazonaws.com
+http://18.223.133.52/
 
 ## Please when ready add your teams application URL or IP to the repository description. This will help with grading. Teams are expected to keep this value up to date.
 
