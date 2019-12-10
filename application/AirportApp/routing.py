@@ -85,7 +85,7 @@ def Routing(app):
     # Page will update gate info
     # NOTE: This feature will probably be built into gate page and not need its own
     @app.route('/gateupdate/<int:gid>', methods=["GET", "POST"])
-    def gateUpdate(gid):
+    def gateupdate(gid):
         if request.method == "POST":
             gatename = request.form['gate']
             flight = request.form['flight']
