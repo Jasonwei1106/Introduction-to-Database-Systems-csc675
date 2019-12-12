@@ -37,8 +37,8 @@ def Routing(app):
                                )
 
     # Page will contain form to add a flight
-    @app.route('/form', methods=["GET", "POST"])
-    def form():
+    @app.route('/addflight', methods=["GET", "POST"])
+    def addflight():
         if request.method == "POST":
             departure_time = request.form['departure']
             arrival_time = request.form['arrival']
@@ -78,20 +78,24 @@ def Routing(app):
     # Page will display all gates
     @app.route('/gate')
     def gate():
-        gate = db.getGate('1')
+        gate = db.getGateInfo('1')
         return render_template('gate.html', title='Gate Info',
                                columns=gate)
 
     # Page will update gate info
     # NOTE: This feature will probably be built into gate page and not need its own
-    @app.route('/gateUpdate/<int:gid>')
-    def gateUpdate(gid):
+    @app.route('/gateupdate/<int:gid>', methods=["GET", "POST"])
+    def gateupdate(gid):
         if request.method == "POST":
-            updatedAirplaneID = request.form['airplaneID']
-            db.up_gate(gid, updatedAirplaneID)
+            gatename = request.form['gate']
+            flight = request.form['flight']
+            print(gatename)
             return redirect(url_for('gate'))
         else:
-            return render_template('gateUpdate.html', title='Update Gate')
+            gate = db.getGate(gid)
+            print(gid)
+            return render_template('gateUpdate.html', gid=gid,
+                                   gatevalue=gate.name, flight=gate.idAirplane)
 
     @app.route('/airplane')
     def airplane():
