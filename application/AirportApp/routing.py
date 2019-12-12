@@ -42,9 +42,8 @@ def Routing(app):
         if request.method == "POST":
             departure_time = request.form['departure']
             arrival_time = request.form['arrival']
-            print(departure_time)
-            # Add the Flight based on the info here
-            # Have to input in the database
+
+            db.addFlight(departure_time, arrival_time)
             return redirect(url_for('flights'))
         else:
             return render_template('addflight.html')
