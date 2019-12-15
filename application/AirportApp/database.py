@@ -197,7 +197,7 @@ class Database:
         return list
 
     # GATE TABLE, gives gate names and associated airplane
-    def getGate(self, airportID):
+    def getGateInfo(self, airportID):
         list = []
         Gate = self.getTable('Gate')
         retGate = self.DB.select([Gate.columns.idGate, Gate.columns.name, Gate.columns.idAirplane]). \
@@ -209,6 +209,10 @@ class Database:
             associatedAirplane = value[2]
             list.append((id, name, associatedAirplane))
         return list
+
+    def getGate(self, gateID):
+        Gate = self.getTable('Gate')
+        return self.DB.session.query(Gate).filter_by(idGate=gateID).first()
 
     def getAirplanes(self):
         Airplane = self.getTable('Airplane')
