@@ -87,15 +87,16 @@ def Routing(app):
     @app.route('/gateupdate/<int:gid>', methods=["GET", "POST"])
     def gateupdate(gid):
         if request.method == "POST":
+
             gatename = request.form['gate']
-            flight = request.form['flight']
+            flight = request.form['airplane']
             print(gatename)
+            db.up_gate(gid, flight)
             return redirect(url_for('gate'))
         else:
             gate = db.getGate(gid)
-            print(gid)
             return render_template('gateUpdate.html', gid=gid,
-                                   gatevalue=gate.name, flight=gate.idAirplane)
+                                   gatevalue=gate.name, airplane=gate.idAirplane)
 
     @app.route('/airplane')
     def airplane():
@@ -110,7 +111,11 @@ def Routing(app):
             db.up_airplane(apid, updatedFlightID)
             return redirect(url_for('airplane'))
         else:
-            return render_template('airplaneUpdate.html')
+            airplanes = db.getAirplanes()
+            return render_template('airplaneUpdate.html',
+                                   title='Update Airplane',
+                                   airplanename=airplanes.name,
+                                   airplaneflight=airplanes.idFlight)
 
     # Page will update pilot info
     @app.route('/pilotUpdate/<int:piid>')
