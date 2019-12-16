@@ -87,10 +87,7 @@ def Routing(app):
     @app.route('/gateupdate/<int:gid>', methods=["GET", "POST"])
     def gateupdate(gid):
         if request.method == "POST":
-
-            gatename = request.form['gate']
             flight = request.form['airplane']
-            print(gatename)
             db.up_gate(gid, flight)
             return redirect(url_for('gate'))
         else:
@@ -100,22 +97,25 @@ def Routing(app):
 
     @app.route('/airplane')
     def airplane():
-        airplanes = db.getAirplanes()
+        airplanes = db.getAirplanesinfo()
         return render_template('airplane.html', title='Airplane Info', airplanes=airplanes)
 
     # Page will update airplane info
-    @app.route('/airplaneUpdate/<int:apid>')
+    @app.route('/airplaneUpdate/<int:apid>', methods=["GET", "POST"])
     def airplaneUpdate(apid):
         if request.method == "POST":
-            updatedFlightID = request.form['flightID']
-            db.up_airplane(apid, updatedFlightID)
+            updatedFlightID = request.form['flightId']
+            print(updatedFlightID)
+            #db.up_airplane(apid, updatedFlightID)
             return redirect(url_for('airplane'))
         else:
-            airplanes = db.getAirplanes()
+            airplanes = db.getAirplanes(apid)
+            print(airplanes)
             return render_template('airplaneUpdate.html',
                                    title='Update Airplane',
-                                   airplanename=airplanes.name,
-                                   airplaneflight=airplanes.idFlight)
+                                   apid=apid,
+                                   airplanename = airplanes.name,
+                                   airplaneflight = airplanes.idFlight)
 
     # Page will update pilot info
     @app.route('/pilotUpdate/<int:piid>')

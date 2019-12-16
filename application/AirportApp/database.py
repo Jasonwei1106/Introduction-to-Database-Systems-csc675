@@ -214,9 +214,13 @@ class Database:
         Gate = self.getTable('Gate')
         return self.DB.session.query(Gate).filter_by(idGate=gateID).first()
 
-    def getAirplanes(self):
+    def getAirplanesinfo(self):
         Airplane = self.getTable('Airplane')
         return self.DB.session.query(Airplane).all()
+
+    def getAirplanes(self, airplaneID):
+        Airplane = self.getTable('Airplane')
+        return self.DB.session.query(Airplane).filter_by(idFlight=airplaneID).first()
 
     # SEARCH PASSENGER
     def getPassenger(self, name):
