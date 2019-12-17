@@ -190,9 +190,12 @@ class Database:
             airplaneIDSQL = self.DB.select([Airplane.columns.idAirplane]).where(Airplane.columns.idFlight == id)
             _airplaneID = self.DB.session.execute(airplaneIDSQL)
             airplaneID = [row[0] for row in _airplaneID]
-            retGate = self.DB.select([Gate.columns.name]).where(Gate.columns.idAirplane == airplaneID)
-            _G = self.DB.session.execute(retGate)
-            G = [row[0] for row in _G]
+            if len(airplaneID) == 0:
+                G = []
+            else:
+                retGate = self.DB.select([Gate.columns.name]).where(Gate.columns.idAirplane == airplaneID)
+                _G = self.DB.session.execute(retGate)
+                G = [row[0] for row in _G]
             list.append((id, A, G, P, B, passCount))
         return list
 
@@ -214,9 +217,13 @@ class Database:
         Gate = self.getTable('Gate')
         return self.DB.session.query(Gate).filter_by(idGate=gateID).first()
 
-    def getAirplanes(self):
+    def getAirplanesinfo(self):
         Airplane = self.getTable('Airplane')
         return self.DB.session.query(Airplane).all()
+
+    def getAirplanes(self, airplaneID):
+        Airplane = self.getTable('Airplane')
+        return self.DB.session.query(Airplane).filter_by(idFlight=airplaneID).first()
 
     # SEARCH PASSENGER
     def getPassenger(self, name):
@@ -239,17 +246,17 @@ class Database:
     # UPDATE GATE
     def up_gate(self, idGate, idAirplane):
         Gate = self.getTable('Gate')
-        self.DB.session.execute(self.DB.update(Gate).SET(idAirplane=idAirplane).where(Gate.idGate == idGate))
+        self.DB.session.execute(Gate.update().where(Gate.columns.idGate == idGate).values(idAirplane=idAirplane))
         self.DB.session.commit()
 
     # UPDATE AIRPLANE
     def up_airplane(self, idAirplane, idFlight):
         Airplane = self.getTable('Airplane')
-        self.DB.session.execute(self.DB.update(Airplane).SET(idFlight=idFlight).where(Airplane.idAirplane == idAirplane))
+        self.DB.session.execute(Airplane.update().where(Airplane.columns.idAirplane == idAirplane).values(idFlight=idFlight))
         self.DB.session.commit()
 
     # UPDATE PILOT
     def up_pilot(self, idPilot, idFlight):
         Pilot = self.getTable('Pilot')
-        self.DB.session.execute(self.DB.update(Pilot).SET(idFlight=idFlight).where(Pilot.idPilot == idPilot))
+        self.DB.session.execute(Pilot.update().where(Pilot.columns.idPilot == idPilot).values(idFlight=idFlight))
         self.DB.session.commit()
