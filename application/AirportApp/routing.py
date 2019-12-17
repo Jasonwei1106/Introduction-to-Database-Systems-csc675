@@ -113,8 +113,8 @@ def Routing(app):
             return render_template('airplaneUpdate.html',
                                    title='Update Airplane',
                                    apid=apid,
-                                   airplanename = airplanes.name,
-                                   airplaneflight = airplanes.idFlight)
+                                   airplanename=airplanes.name,
+                                   airplaneflight=airplanes.idFlight)
 
     # General FAQ/about page for our project
     @app.route('/support')

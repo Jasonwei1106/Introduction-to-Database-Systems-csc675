@@ -223,7 +223,7 @@ class Database:
 
     def getAirplanes(self, airplaneID):
         Airplane = self.getTable('Airplane')
-        return self.DB.session.query(Airplane).filter_by(idFlight=airplaneID).first()
+        return self.DB.session.query(Airplane).filter_by(idAirplane=airplaneID).first()
 
     # SEARCH PASSENGER
     def getPassenger(self, name):
