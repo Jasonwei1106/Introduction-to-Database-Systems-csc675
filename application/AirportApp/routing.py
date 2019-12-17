@@ -37,12 +37,13 @@ def Routing(app):
                                )
 
     # Page will contain form to add a flight
-    @app.route('/form', methods=["GET", "POST"])
-    def form():
+    @app.route('/addflight', methods=["GET", "POST"])
+    def addflight():
         if request.method == "POST":
             departure_time = request.form['departure']
             arrival_time = request.form['arrival']
-            print(departure_time)
+
+            db.addFlight(departure_time, arrival_time)
             # Add the Flight based on the info here
             # Have to input in the database
             return redirect(url_for('flights'))
@@ -78,101 +79,46 @@ def Routing(app):
     # Page will display all gates
     @app.route('/gate')
     def gate():
-        gate = db.getGate('1')
+        gate = db.getGateInfo('1')
         return render_template('gate.html', title='Gate Info',
                                columns=gate)
 
     # Page will update gate info
     # NOTE: This feature will probably be built into gate page and not need its own
-    @app.route('/gateUpdate/<int:gid>')
-    def gateUpdate(gid):
+    @app.route('/gateupdate/<int:gid>', methods=["GET", "POST"])
+    def gateupdate(gid):
         if request.method == "POST":
-            updatedAirplaneID = request.form['airplaneID']
-            db.up_gate(gid, updatedAirplaneID)
+            flight = request.form['airplane']
+            db.up_gate(gid, flight)
             return redirect(url_for('gate'))
         else:
-            return render_template('gateUpdate.html', title='Update Gate')
+            gate = db.getGate(gid)
+            return render_template('gateUpdate.html', gid=gid,
+                                   gatevalue=gate.name, airplane=gate.idAirplane)
 
     @app.route('/airplane')
     def airplane():
-        airplanes = db.getAirplanes()
+        airplanes = db.getAirplanesinfo()
         return render_template('airplane.html', title='Airplane Info', airplanes=airplanes)
 
     # Page will update airplane info
-    @app.route('/airplaneUpdate/<int:apid>')
+    @app.route('/airplaneUpdate/<int:apid>', methods=["GET", "POST"])
     def airplaneUpdate(apid):
         if request.method == "POST":
-            updatedFlightID = request.form['flightID']
+            updatedFlightID = request.form['flightId']
             db.up_airplane(apid, updatedFlightID)
             return redirect(url_for('airplane'))
         else:
-            return render_template('airplaneUpdate.html')
-
-    # Page will update pilot info
-    @app.route('/pilotUpdate/<int:piid>')
-    def pilotUpdate(piid):
-        if request.method == "POST":
-            updatedFlightID = request.form['flightID']
-            db.up_pilot(piid, updatedFlightID)
-            return redirect(url_for('airplane'))
-        else:
-            return render_template('pilotUpdate.html')
+            airplanes = db.getAirplanes(apid)
+            return render_template('airplaneUpdate.html',
+                                   title='Update Airplane',
+                                   apid=apid,
+                                   airplanename=airplanes.name,
+                                   airplaneflight=airplanes.idFlight)
 
     # General FAQ/about page for our project
     @app.route('/support')
     def support():
         return render_template('support.html', title='Support')
 
-    ####################################################################################################################
-    #                                                  TESTS                                                           #
-    ####################################################################################################################
-
-    @app.route('/example/<string:airport>')
-    def test(airport):
-        flight1 = db.getFlight('1')
-        db.addFlight('2019-11-24 16:38:29', '2019-11-24 22:38:35')
-
-        flightList = []
-        for v in db.getInfo(1):
-            flight, airplane, gate, pilot, baggage, pcount = v
-            flightList.append(flight)
-        return render_template('test.html',
-                               title='test page',
-                               flight=flight1)
-
-    @app.route('/redirect')
-    def redtest():
-        """
-        Redirect will look for the url of a function
-        In this example, 'index' is the name of the function for the home route '/'
-
-        Redirects can also pass variables like render template:
-            redirect(url_for('index'), title=redirected)
-        These arguments can be used at the redirected page with:
-            request.args.get('title')
-        """
-        return redirect(url_for('index'))
-
-    ####################################################################################################################
-    #                                               END TESTS                                                          #
-    ####################################################################################################################
-
-    # Define pages for project
-
-    # JASON:
-
-        # Page to display flight info
-        # Flight, Gate, Airplane, Pilot, BaggageClaim, Passenger Count
-
-        # Page to display gate info
-        # Page to add flight
-
-    # NAVNEET / PRATIK:
-        # Page to update gate
-        # Page to update airplane
-        # Page to update pilot
-
-    # Page to search for passengers and display results
-    # Page to delete flights
-    # Page to delete passengers
 
