@@ -190,9 +190,12 @@ class Database:
             airplaneIDSQL = self.DB.select([Airplane.columns.idAirplane]).where(Airplane.columns.idFlight == id)
             _airplaneID = self.DB.session.execute(airplaneIDSQL)
             airplaneID = [row[0] for row in _airplaneID]
-            retGate = self.DB.select([Gate.columns.name]).where(Gate.columns.idAirplane == airplaneID)
-            _G = self.DB.session.execute(retGate)
-            G = [row[0] for row in _G]
+            if len(airplaneID) == 0:
+                G = []
+            else:
+                retGate = self.DB.select([Gate.columns.name]).where(Gate.columns.idAirplane == airplaneID)
+                _G = self.DB.session.execute(retGate)
+                G = [row[0] for row in _G]
             list.append((id, A, G, P, B, passCount))
         return list
 
@@ -214,9 +217,13 @@ class Database:
         Gate = self.getTable('Gate')
         return self.DB.session.query(Gate).filter_by(idGate=gateID).first()
 
-    def getAirplanes(self):
+    def getAirplanesinfo(self):
         Airplane = self.getTable('Airplane')
         return self.DB.session.query(Airplane).all()
+
+    def getAirplanes(self, airplaneID):
+        Airplane = self.getTable('Airplane')
+        return self.DB.session.query(Airplane).filter_by(idAirplane=airplaneID).first()
 
     # SEARCH PASSENGER
     def getPassenger(self, name):

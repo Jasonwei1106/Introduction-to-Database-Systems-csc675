@@ -14,12 +14,12 @@
 
 <body style="background: url(https://images2.minutemediacdn.com/image/upload/c_crop,h_1418,w_2518,x_0,y_247/f_auto,q_auto,w_1100/v1554745450/shape/mentalfloss/555807istock-932651818.jpg); background-size: 100% ;  mask-border-repeat: space">
 
- <header>
-     <div >
-         <nav class="navbar navbar-dark bg-dark">
-             <a class="navbar-brand" href="/home">
-                <img src=" {{ url_for('static' , filename = 'open-iconic/png/airplane.png') }}" width="30" height="30" class="d-inline-block align-top" alt=""> Airport App
-             </a>
+    <div>
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="/home">
+                <img src=" {{ url_for('static' , filename = 'resources/airplane.png') }}" width="30" height="30"
+                     class="d-inline-block align-top" alt=""> Airport App
+            </a>
         </nav>
      </div>
 
@@ -39,11 +39,16 @@
  </header>
 
 <footer>
-     <div class="container-fluid">
-        <nav class="navbar fixed-bottom navbar-dark bg-dark">
-            <a href="/support">
-            <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Support</button>
-            </a>
+    <div>
+        <nav class="navbar fixed-bottom  navbar-dark bg-dark">
+            <div class="col-md-4"></div>
+            <div class="col-md-4 text-center">
+                <h4 class="text-lg-center text-light">CSC675 - Team 7</h4>
+                <a href="/support">
+                    <button class="btn btn-warning btn-lg my-2 my-sm-0" type="submit">Support</button>
+                </a>
+            </div>
+            <div class="col-md-4"></div>
         </nav>
      </div>
 </footer>
