@@ -15,11 +15,17 @@
 <body style="background: url(https://images2.minutemediacdn.com/image/upload/c_crop,h_1418,w_2518,x_0,y_247/f_auto,q_auto,w_1100/v1554745450/shape/mentalfloss/555807istock-932651818.jpg); background-size: 100% ;  mask-border-repeat: space">
 
     <div>
-        <nav class="navbar navbar-dark bg-dark">
-            <a class="navbar-brand" href="/home">
-                <img src=" {{ url_for('static' , filename = 'resources/airplane.png') }}" width="30" height="30"
-                     class="d-inline-block align-top" alt=""> Airport App
-            </a>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="col-md-2"></div>
+            <ul class="col-md-8 navbar-nav mr-auto mt-2 mt-lg-0">
+                <div>
+                        <a class="navbar-brand" href=/home>
+                            <img src=" {{ url_for('static' , filename = 'resources/airplane.png') }}"
+                                 width="30"
+                                 height="30" class="d-inline-block align-top" alt=""> Airport of Oakland
+                        </a>
+                </div>
+            </ul>
         </nav>
      </div>
 
@@ -27,10 +33,9 @@
          <h1 class="cover-heading container-fluid"  style="margin-left: 320px; margin-top: 220px;" > </h1>
      </div>
 
-     <div class="container-fluid ">
+     <div class="container-fluid text-center">
          <a  href="/home">
-            ><button type="button"  class = " btn btn-outline-dark" style="margin-top: 165px;
-            margin-bottom: 30px; height: 50px; margin-left: 588px" >Enter</button>
+            <button type="button"  class="btn btn-lg btn-primary" style="margin-top: 165px;">Enter</button>
           </a>
      </div>
 
