@@ -12,7 +12,8 @@
     <script type="text/javascript" src="{{ url_for('static',filename='js/bootstrap.min.js') }}"></script>
 </head>
 
-<body>
+<body style="background: url(https://images2.minutemediacdn.com/image/upload/c_crop,h_1418,w_2518,x_0,y_247/f_auto,q_auto,w_1100/v1554745450/shape/mentalfloss/555807istock-932651818.jpg);
+        background-size: 100% ;  mask-border-repeat: space">
 
 <header>
     <div>
@@ -20,13 +21,11 @@
             <div class="col-md-2"></div>
             <ul class="col-md-8 navbar-nav mr-auto mt-2 mt-lg-0">
                 <div>
-                    <li>
-                        <a class="navbar-brand" href=/home>
-                            <img src=" {{ url_for('static' , filename = 'resources/airplane.png') }}"
-                                 width="30"
-                                 height="30" class="d-inline-block align-top" alt=""> Airport of Oakland
-                        </a>
-                    </li>
+                    <a class="navbar-brand" href=/home>
+                        <img src=" {{ url_for('static' , filename = 'resources/airplane.png') }}"
+                             width="30"
+                             height="30" class="d-inline-block align-top" alt=""> Airport of Oakland
+                    </a>
                 </div>
 
                 <div>
@@ -36,7 +35,7 @@
                             Flights
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/flight">Flights</a>
+                            <a class="dropdown-item" href="/flight">Flight Info</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/addflight">Add Flight</a>
                         </div>
@@ -45,23 +44,15 @@
 
 
                 <div>
-                    <li class="nav-item active ">
-                        <a class="nav-link" href="/passenger" role="button" aria-haspopup="true">Passengers</a>
-                    </li>
+                    <a class="nav-link text-white" href="/passenger" role="button" aria-haspopup="true">Passengers</a>
                 </div>
 
                 <div>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/airplane" role="button" aria-haspopup="true">Airplanes</a>
-
-                    </li>
+                    <a class="nav-link text-white" href="/airplane" role="button" aria-haspopup="true">Airplanes</a>
                 </div>
 
                 <div>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/gate" role="button" aria-haspopup="true">Gates</a>
-
-                    </li>
+                    <a class="nav-link text-white" href="/gate" role="button" aria-haspopup="true">Gates</a>
                 </div>
 
             </ul>
@@ -94,7 +85,7 @@
             <div class="col-md-4 text-center">
                 <h4 class="text-lg-center text-light">CSC675 - Team 7</h4>
                 <a href="/support">
-                    <button class="btn btn-primary btn-lg my-2 my-sm-0" type="submit">Support</button>
+                    <button class="btn btn-warning btn-lg my-2 my-sm-0" type="submit">Support</button>
                 </a>
             </div>
             <div class="col-md-4"></div>
