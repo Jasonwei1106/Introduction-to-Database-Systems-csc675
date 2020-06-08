@@ -2,7 +2,7 @@
 Team 07
 
 # Project URL
-http://18.223.133.52/
+http://18.223.133.52/  (The AWS server is turned off now.)
 
 ## Please when ready add your teams application URL or IP to the repository description. This will help with grading. Teams are expected to keep this value up to date.
 
